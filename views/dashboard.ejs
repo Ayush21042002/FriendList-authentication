@@ -1,0 +1,72 @@
+<h1 class="mt-4">Dashboard</h1>
+<p class="lead mb-3">Welcome <%= name %></p>
+<a href="/users/logout" class="btn btn-secondary">Logout</a>
+<hr>
+<div class="container">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-8">
+            <h1 class="mt-4">Friend List</h1>
+            <ul>
+                <% for(var i=0; i<(Friends.length); i++) { %>
+                    <li>Name:<%= Friends[i].name %><br>
+                        Number:<%= Friends[i].number %>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                            Update
+                        </button>
+                        
+                        <!-- Modal -->
+                        <form action="/users/updatefriend" method="POST">
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Update</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label for="name">Name</label>
+                                                <input type="text" id="name" name="name" class="form-control" 
+                                                value="<%= Friends[i].name %>" readonly/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="number">Number</label>
+                                                <input type="text" id="number" name="number" class="form-control" value="<%= Friends[i].number %>" />
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>                       
+                    </li>                
+                <% } %>
+            </ul>
+        </div>
+        <div class="col">
+            <form action='/users/friend' method="POST">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Enter Name" />
+                </div>
+                <div class="form-group">
+                    <label for="number">Number</label>
+                    <input type="text" id="number" name="number" class="form-control" placeholder="Enter number" />
+                </div>
+                <div class="form-group">
+                    <label for="friendemail">Friend Of:</label>
+                    <input type="text" id="friendemail" name="friendemail" class="form-control" value="<%= email %>" readonly/>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Add</button>
+            </form>
+        </div>
+    </div>
+</div>
